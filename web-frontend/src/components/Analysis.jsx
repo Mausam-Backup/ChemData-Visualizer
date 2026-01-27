@@ -34,8 +34,8 @@ export default function Analysis({ datasetId }) {
     useEffect(() => {
         setLoading(true);
         Promise.all([
-            api.get(`datasets/${datasetId}/stats/`),
-            api.get(`datasets/${datasetId}/data/`)
+            api.get(`api/datasets/${datasetId}/stats/`),
+            api.get(`api/datasets/${datasetId}/data/`)
         ]).then(([statsRes, dataRes]) => {
             setStats(statsRes.data);
             setRecords(dataRes.data.results || dataRes.data);
@@ -48,7 +48,7 @@ export default function Analysis({ datasetId }) {
 
     const downloadPDF = async () => {
         try {
-            const response = await api.get(`datasets/${datasetId}/pdf/`, {
+            const response = await api.get(`api/datasets/${datasetId}/pdf/`, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

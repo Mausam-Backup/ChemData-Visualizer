@@ -19,7 +19,9 @@ class DatasetUploadView(APIView):
     def post(self, request, *args, **kwargs):
         file_serializer = DatasetSerializer(data=request.data)
         if file_serializer.is_valid():
-            dataset = file_serializer.save()
+            # Attach user
+            dataset = file_serializer.save(user=request.user)
+            
             
             # Process CSV
             try:
@@ -45,6 +47,13 @@ class DatasetUploadView(APIView):
         return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DatasetListView(generics.ListAPIView):
+    serializer_class = DatasetSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Dataset.objects.filter(user=self.request.user).order_by('-uploaded_at')
+
+class GlobalDatasetListView(generics.ListAPIView):
     queryset = Dataset.objects.all().order_by('-uploaded_at')
     serializer_class = DatasetSerializer
     permission_classes = [permissions.IsAuthenticated]

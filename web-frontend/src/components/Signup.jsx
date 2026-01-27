@@ -1,26 +1,30 @@
 import { useState } from 'react';
 import api from '../api';
-import { GoogleLogin } from '@react-oauth/google';
 
-export default function Login({ onLogin, onSwitchToSignup }) {
+export default function Signup({ onLogin, onSwitchToLogin }) {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        try {
-            const response = await api.post('api/api-token-auth/', { username, password });
-            onLogin(response.data.token);
-        } catch (err) {
-            setError('Invalid credentials');
+        if (password !== confirmPassword) {
+            setError("Passwords don't match");
+            return;
         }
-    };
-
-    const handleGoogleSuccess = (credentialResponse) => {
-        console.log(credentialResponse);
-        alert("Google Login Success! Token: " + credentialResponse.credential);
+        try {
+            const response = await api.post('auth/registration/', { username, email, password1: password, password2: confirmPassword });
+            if (response.data.key) {
+                onLogin(response.data.key);
+            } else {
+                onSwitchToLogin();
+            }
+        } catch (err) {
+            setError(JSON.stringify(err.response?.data) || 'Registration failed');
+        }
     };
 
     return (
@@ -29,38 +33,57 @@ export default function Login({ onLogin, onSwitchToSignup }) {
             <div className="w-full md:w-1/2 flex flex-col justify-center px-8 sm:px-16 lg:px-24">
                 <div className="max-w-md w-full mx-auto">
                     {/* Logo Area */}
-                    <div className="flex items-center gap-2 mb-12">
+                    <div className="flex items-center gap-2 mb-8">
                         <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">C</div>
                         <span className="text-xl font-bold text-gray-900 tracking-tight">ChemViz</span>
                     </div>
 
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
-                    <p className="text-gray-500 mb-8">Let's get you signed in securely.</p>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
+                    <p className="text-gray-500 mb-8">Join us to visualize your data efficiently.</p>
 
-                    <form className="space-y-6" onSubmit={handleSubmit}>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Username or Email</label>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Username</label>
                             <input 
                                 type="text" 
                                 required 
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
-                                placeholder="Enter Your Username" 
+                                placeholder="Choose a username" 
                                 value={username} 
                                 onChange={(e) => setUsername(e.target.value)} 
                             />
                         </div>
                         <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="block text-sm font-semibold text-gray-700">Password</label>
-                                <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500 font-semibold">Forgot Your Password?</a>
-                            </div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+                            <input 
+                                type="email" 
+                                required 
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                                placeholder="you@example.com" 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                            />
+                        </div>
+                        <div>
+                             <label className="block text-sm font-semibold text-gray-700 mb-1">Password</label>
                             <input 
                                 type="password" 
                                 required 
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
-                                placeholder="Your Password" 
+                                placeholder="Create a password" 
                                 value={password} 
                                 onChange={(e) => setPassword(e.target.value)} 
+                            />
+                        </div>
+                        <div>
+                             <label className="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
+                            <input 
+                                type="password" 
+                                required 
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                                placeholder="Confirm your password" 
+                                value={confirmPassword} 
+                                onChange={(e) => setConfirmPassword(e.target.value)} 
                             />
                         </div>
 
@@ -68,42 +91,22 @@ export default function Login({ onLogin, onSwitchToSignup }) {
 
                         <button 
                             type="submit" 
-                            className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mt-4"
                         >
-                            Log in with Email
+                            Sign Up
                         </button>
                     </form>
 
-                    <div className="mt-6 flex flex-col gap-4">
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-200"></div>
-                            </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                            </div>
-                        </div>
-
-                        <div className="flex justify-center w-full">
-                             <GoogleLogin
-                                onSuccess={handleGoogleSuccess}
-                                onError={() => console.log('Login Failed')}
-                                shape="pill"
-                                width="350px"
-                            />
-                        </div>
-                    </div>
-
                     <p className="mt-8 text-center text-sm text-gray-600">
-                        Don't Have an Account?{' '}
-                        <button onClick={onSwitchToSignup} className="font-bold text-indigo-600 hover:text-indigo-500">
-                            Sign Up
+                        Already have an account?{' '}
+                        <button onClick={onSwitchToLogin} className="font-bold text-indigo-600 hover:text-indigo-500">
+                            Sign In
                         </button>
                     </p>
                 </div>
             </div>
 
-            {/* Right Side - Visuals */}
+            {/* Right Side - Visuals (Identical to Login) */}
             <div className="hidden md:flex md:w-1/2 bg-gray-50 relative overflow-hidden items-center justify-center p-12">
                 
                 {/* Decorative blobs */}

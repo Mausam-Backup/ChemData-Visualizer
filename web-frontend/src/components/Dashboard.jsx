@@ -5,10 +5,12 @@ export default function Dashboard({ onSelect }) {
     const [datasets, setDatasets] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [file, setFile] = useState(null);
+    const [activeTab, setActiveTab] = useState('my'); // 'my' or 'global'
 
     const fetchDatasets = async () => {
         try {
-            const res = await api.get('datasets/');
+            const endpoint = activeTab === 'my' ? 'api/datasets/' : 'api/global-datasets/';
+            const res = await api.get(endpoint);
             setDatasets(res.data.results || res.data);
         } catch (err) {
             console.error(err);
@@ -17,7 +19,7 @@ export default function Dashboard({ onSelect }) {
 
     useEffect(() => {
         fetchDatasets();
-    }, []);
+    }, [activeTab]);
 
     const handleUpload = async (e) => {
         e.preventDefault();
@@ -28,11 +30,13 @@ export default function Dashboard({ onSelect }) {
 
         setUploading(true);
         try {
-            await api.post('upload/', formData, {
+             // Uploading always goes to user's history
+            await api.post('api/upload/', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             setFile(null);
-            fetchDatasets();
+            if (activeTab === 'my') fetchDatasets();
+            else setActiveTab('my'); // switch to see new upload
         } catch (err) {
             alert('Upload failed: ' + (err.response?.data?.error || err.message));
         } finally {
@@ -73,9 +77,23 @@ export default function Dashboard({ onSelect }) {
             </div>
 
             <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Uploads</h3>
+                <div className="border-b border-gray-200">
+                    <nav className="-mb-px flex" aria-label="Tabs">
+                         <button
+                            onClick={() => setActiveTab('my')}
+                            className={`${activeTab === 'my' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+                        >
+                            My History
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('global')}
+                            className={`${activeTab === 'global' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+                        >
+                            Global History
+                        </button>
+                    </nav>
                 </div>
+                
                 <ul className="divide-y divide-gray-200">
                     {datasets.map((ds) => (
                         <li key={ds.id}>
@@ -83,7 +101,7 @@ export default function Dashboard({ onSelect }) {
                                 <div className="px-4 py-4 sm:px-6">
                                     <div className="flex items-center justify-between">
                                         <p className="text-sm font-medium text-indigo-600 truncate">
-                                            Dataset #{ds.id}
+                                            Dataset #{ds.id} {ds.user ? `(User: ${ds.user})` : ''}
                                         </p>
                                         <div className="ml-2 flex-shrink-0 flex">
                                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
