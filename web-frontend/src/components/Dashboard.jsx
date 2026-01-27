@@ -6,22 +6,45 @@ import Skeleton from './ui/Skeleton';
 export default function Dashboard({ onSelect }) {
     const [datasets, setDatasets] = useState([]);
     const [uploading, setUploading] = useState(false);
+    const [loadingData, setLoadingData] = useState(true);
     const [file, setFile] = useState(null);
     const [activeTab, setActiveTab] = useState('my'); // 'my' or 'global'
+    const [isDragging, setIsDragging] = useState(false);
 
     const fetchDatasets = async () => {
+        setLoadingData(true);
         try {
             const endpoint = activeTab === 'my' ? 'api/datasets/' : 'api/global-datasets/';
             const res = await api.get(endpoint);
             setDatasets(res.data.results || res.data);
         } catch (err) {
             console.error(err);
+        } finally {
+            setLoadingData(false);
         }
     };
 
     useEffect(() => {
         fetchDatasets();
     }, [activeTab]);
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            setFile(e.dataTransfer.files[0]);
+        }
+    };
 
     const handleUpload = async (e) => {
         e.preventDefault();
@@ -32,17 +55,16 @@ export default function Dashboard({ onSelect }) {
 
         setUploading(true);
         try {
-            // Uploading always goes to user's history
             await Promise.all([
                 api.post('api/upload/', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }),
-                new Promise(resolve => setTimeout(resolve, 2500)) // Artificial delay for UX
+                new Promise(resolve => setTimeout(resolve, 2000)) // Artificial delay for UX
             ]);
             
             setFile(null);
             if (activeTab === 'my') fetchDatasets();
-            else setActiveTab('my'); // switch to see new upload
+            else setActiveTab('my'); 
         } catch (err) {
             alert('Upload failed: ' + (err.response?.data?.error || err.message));
         } finally {
@@ -51,96 +73,167 @@ export default function Dashboard({ onSelect }) {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8 max-w-[1200px] mx-auto pb-12">
             <ProcessingOverlay isProcessing={uploading} message="Uploading & Analyzing Dataset..." />
             
-            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
-                <div className="md:grid md:grid-cols-3 md:gap-6">
-                    <div className="md:col-span-1">
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">Upload New Dataset</h3>
-                        <p className="mt-1 text-sm text-gray-500">
-                            Upload a CSV file containing equipment data.
-                        </p>
-                    </div>
-                    <div className="mt-5 md:mt-0 md:col-span-2">
-                        <form onSubmit={handleUpload} className="space-y-4">
-                            <div>
-                                <input
-                                    type="file"
-                                    accept=".csv"
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                disabled={!file || uploading}
-                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-                            >
-                                {uploading ? 'Processing...' : 'Upload'}
-                            </button>
-                        </form>
-                    </div>
+            {/* Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                     <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome Back</h1>
+                     <p className="text-slate-500 mt-1">Manage your chemical process datasets and generate insights.</p>
+                </div>
+                <div className="flex gap-3">
+                     <button className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl font-medium text-sm hover:bg-slate-50 transition-colors shadow-sm">
+                        Documentation
+                     </button>
+                     <button className="px-4 py-2 bg-primary-600 text-white rounded-xl font-medium text-sm hover:bg-primary-700 transition-colors shadow-lg shadow-primary-200">
+                        New Project
+                     </button>
                 </div>
             </div>
 
-            <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                <div className="border-b border-gray-200">
-                    <nav className="-mb-px flex" aria-label="Tabs">
+            {/* Upload Section */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+                 <div className="max-w-xl mx-auto text-center">
+                    <h2 className="text-lg font-bold text-slate-900 mb-2">Upload New Dataset</h2>
+                    <p className="text-slate-500 text-sm mb-6">Upload a CSV file containing equipment logs (Flowrate, Pressure, Temperature).</p>
+                    
+                    <form onSubmit={handleUpload}>
+                        <div 
+                            className={`relative group border-2 border-dashed rounded-2xl p-10 transition-all text-center cursor-pointer 
+                                ${isDragging ? 'border-primary-500 bg-primary-50' : 'border-slate-200 hover:border-primary-300 hover:bg-slate-50'}
+                                ${file ? 'bg-primary-50 border-primary-500' : ''}
+                            `}
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLeave}
+                            onDrop={handleDrop}
+                            onClick={() => document.getElementById('fileInput').click()}
+                        >
+                            <input
+                                id="fileInput"
+                                type="file"
+                                accept=".csv"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                className="hidden"
+                            />
+                            
+                            <div className="flex flex-col items-center justify-center gap-3">
+                                {file ? (
+                                    <>
+                                        <div className="w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center">
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        </div>
+                                        <div className="text-sm font-medium text-primary-700">{file.name}</div>
+                                        <p className="text-xs text-primary-500">{(file.size / 1024).toFixed(1)} KB • Ready to upload</p>
+                                    </>
+                                ) : (
+                                    <>
+                                         <div className="w-16 h-16 rounded-full bg-slate-100 text-slate-400 group-hover:bg-primary-100 group-hover:text-primary-500 transition-colors flex items-center justify-center mb-2">
+                                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                                        </div>
+                                        <p className="text-sm font-medium text-slate-700">
+                                            <span className="text-primary-600">Click to upload</span> or drag and drop
+                                        </p>
+                                        <p className="text-xs text-slate-400">CSV files up to 10MB</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        {file && (
+                             <button
+                                type="submit"
+                                disabled={uploading}
+                                className="mt-6 w-full py-2.5 px-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium shadow-lg shadow-primary-200 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                {uploading ? 'Processing...' : 'Start Analysis'}
+                            </button>
+                        )}
+                    </form>
+                 </div>
+            </div>
+
+            {/* History Section */}
+            <div>
+                 <div className="flex items-center justify-between mb-4">
+                     <h2 className="text-lg font-bold text-slate-900">Recent Datasets</h2>
+                     <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-100 flex">
                          <button
                             onClick={() => setActiveTab('my')}
-                            className={`${activeTab === 'my' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+                            className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'my' ? 'bg-primary-50 text-primary-700 shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                             My History
                         </button>
                         <button
                             onClick={() => setActiveTab('global')}
-                            className={`${activeTab === 'global' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+                            className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'global' ? 'bg-primary-50 text-primary-700 shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
-                            Global History
+                            Global
                         </button>
-                    </nav>
-                </div>
-                
-                <ul className="divide-y divide-gray-200">
-                    {datasets.length === 0 && datasets !== null ? ( // Assuming null could be loading state if initialized that way, currently []
-                         // If we wanted a skeleton for the list, we could use it here. 
-                         // But for now, let's just make sure list looks good.
-                         // Actually let's use skeleton if datasets is empty and we are fetching? 
-                         // But we don't have a loading state for fetchDatasets separate from uploading.
-                         // Let's add a local loading state for that.
-                         <li className="px-4 py-4 sm:px-6 text-center text-gray-500">No datasets found.</li>
-                    ) : (
-                        datasets.map((ds) => (
-                            <li key={ds.id}>
-                                <a href="#" onClick={(e) => { e.preventDefault(); onSelect(ds.id); }} className="block hover:bg-gray-50 transition-colors">
-                                    <div className="px-4 py-4 sm:px-6">
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-sm font-medium text-primary-600 truncate">
-                                                Dataset #{ds.id} {ds.user ? `(User: ${ds.user})` : ''}
-                                            </p>
-                                            <div className="ml-2 flex-shrink-0 flex">
-                                                <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {new Date(ds.uploaded_at).toLocaleString()}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-2 sm:flex sm:justify-between">
-                                            <div className="sm:flex">
-                                                <p className="flex items-center text-sm text-gray-500">
-                                                    <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                    </svg>
-                                                    {ds.file.split('/').pop()}
-                                                </p>
-                                            </div>
+                     </div>
+                 </div>
+
+                 <div className="bg-white shadow-sm border border-slate-100 rounded-2xl overflow-hidden min-h-[300px]">
+                    {loadingData ? (
+                        <div className="p-6 space-y-4">
+                             {[...Array(3)].map((_, i) => (
+                                <div key={i} className="flex justify-between items-center">
+                                    <div className="flex items-center gap-4">
+                                        <Skeleton className="w-10 h-10 rounded-lg" />
+                                        <div className="space-y-2">
+                                            <Skeleton className="w-48 h-4 rounded" />
+                                            <Skeleton className="w-24 h-3 rounded" />
                                         </div>
                                     </div>
-                                </a>
-                            </li>
-                        ))
+                                    <Skeleton className="w-20 h-6 rounded-full" />
+                                </div>
+                             ))}
+                        </div>
+                    ) : datasets.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-16 text-center">
+                            <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                                <svg className="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                            </div>
+                            <h3 className="text-slate-900 font-medium">No datasets found</h3>
+                            <p className="text-slate-500 text-sm mt-1">Upload a CSV file to get started.</p>
+                        </div>
+                    ) : (
+                        <div className="divide-y divide-slate-50">
+                            {datasets.map((ds) => (
+                                <div 
+                                    key={ds.id} 
+                                    onClick={() => onSelect(ds.id)}
+                                    className="p-4 hover:bg-slate-50 transition-colors cursor-pointer group flex items-center justify-between"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 group-hover:scale-110 transition-transform">
+                                            <span className="font-bold text-sm">csv</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-sm font-bold text-slate-800 group-hover:text-primary-600 transition-colors">
+                                                Dataset #{ds.id}
+                                                {ds.user && <span className="ml-2 font-normal text-xs text-slate-400">by {ds.user}</span>}
+                                            </h4>
+                                            <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
+                                                <span>{ds.file.split('/').pop()}</span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                                                <span>{new Date(ds.uploaded_at).toLocaleDateString()} at {new Date(ds.uploaded_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-4">
+                                        <div className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-100 flex items-center gap-1.5">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Processed
+                                        </div>
+                                        <svg className="w-5 h-5 text-slate-300 group-hover:text-primary-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     )}
-                </ul>
+                 </div>
             </div>
         </div>
     );
