@@ -326,35 +326,94 @@ export default function Analysis({ datasetId }) {
             {/* Data Table - Always Visible */}
             <div className="bg-white shadow-sm border border-slate-100 rounded-2xl overflow-hidden mt-6">
                 <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                    <h3 className="text-lg font-bold text-slate-900">equipment_log_2026.csv</h3>
-                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Showing all {records.length} records</span>
+                    <div>
+                         <h3 className="text-lg font-bold text-slate-900">Equipment Logs</h3>
+                         <p className="text-sm text-slate-500 mt-1">Real-time sensor readings and operational status</p>
+                    </div>
+                    <span className="px-3 py-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-500 uppercase tracking-wider shadow-sm">
+                        {records.length} Records
+                    </span>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-slate-100">
                         <thead className="bg-slate-50">
                             <tr>
-                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Equipment Name</th>
-                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Type</th>
-                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Flowrate</th>
-                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Pressure</th>
-                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Temp</th>
+                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/6">Equipment Name</th>
+                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/6">Type</th>
+                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/5">Flowrate <span className="text-slate-300 font-normal normal-case">(L/min)</span></th>
+                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/5">Pressure <span className="text-slate-300 font-normal normal-case">(PSI)</span></th>
+                                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/5">Temp <span className="text-slate-300 font-normal normal-case">(°C)</span></th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-slate-50">
                             {records.map((record, idx) => (
-                                <tr key={record.id} className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-700">{record.equipment_name}</td>
+                                <tr key={record.id} className="hover:bg-slate-50 transition-colors group">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-slate-700">
+                                        {record.equipment_name}
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full border 
+                                        <span className={`px-2.5 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-bold rounded-lg border 
                                             ${record.equipment_type === 'Pump' ? 'bg-sky-50 text-sky-700 border-sky-100' : 
                                               record.equipment_type === 'Valve' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' : 
+                                              record.equipment_type === 'Mixer' ? 'bg-purple-50 text-purple-700 border-purple-100' : 
+                                              record.equipment_type === 'Reactor' ? 'bg-orange-50 text-orange-700 border-orange-100' :
                                               'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${
+                                                record.equipment_type === 'Pump' ? 'bg-sky-400' : 
+                                                record.equipment_type === 'Valve' ? 'bg-emerald-400' : 
+                                                record.equipment_type === 'Mixer' ? 'bg-purple-400' : 
+                                                record.equipment_type === 'Reactor' ? 'bg-orange-400' :
+                                                'bg-slate-400'
+                                            }`}></span>
                                             {record.equipment_type}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{record.flowrate.toFixed(1)}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{record.pressure.toFixed(1)}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{record.temperature.toFixed(1)}</td>
+                                    
+                                    {/* Flowrate Column */}
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex flex-col gap-1.5">
+                                            <span className="text-sm font-bold text-slate-700 font-mono">{record.flowrate.toFixed(1)}</span>
+                                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                                <div 
+                                                    className="bg-primary-500 h-1.5 rounded-full" 
+                                                    style={{ width: `${Math.min(100, (record.flowrate / 400) * 100)}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {/* Pressure Column */}
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex flex-col gap-1.5">
+                                            <span className="text-sm font-bold text-slate-700 font-mono">{record.pressure.toFixed(1)}</span>
+                                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                                <div 
+                                                    className="bg-amber-500 h-1.5 rounded-full" 
+                                                    style={{ width: `${Math.min(100, (record.pressure / 25) * 100)}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {/* Temperature Column */}
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex flex-col gap-1.5">
+                                            <div className="flex items-center gap-2">
+                                                 <span className={`text-sm font-bold font-mono ${record.temperature > 100 ? 'text-rose-600' : 'text-slate-700'}`}>
+                                                    {record.temperature.toFixed(1)}
+                                                 </span>
+                                                 {record.temperature > 100 && (
+                                                     <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-100 animate-pulse">HIGH</span>
+                                                 )}
+                                            </div>
+                                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                                <div 
+                                                    className={`h-1.5 rounded-full ${record.temperature > 100 ? 'bg-rose-500' : 'bg-rose-400'}`}
+                                                    style={{ width: `${Math.min(100, (record.temperature / 150) * 100)}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
