@@ -29,14 +29,14 @@ graph TD
     end
 
     subgraph "API Layer"
-        LB[Load Balancer / Nginx]
-        Django[Django REST Framework]
-        Auth[🔐 Auth Service (JWT/OAuth)]
+        LB["Load Balancer / Nginx"]
+        Django["Django REST Framework"]
+        Auth["🔐 Auth Service (JWT/OAuth)"]
     end
 
     subgraph "Data Layer"
-        DB[(SQLite / PostgreSQL)]
-        Media[📂 Media Storage (CSVs/PDFs)]
+        DB[("SQLite / PostgreSQL")]
+        Media["📂 Media Storage (CSVs/PDFs)"]
     end
 
     Web -->|HTTP/JSON| Django
