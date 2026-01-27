@@ -2,6 +2,8 @@ from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 from django.db.models import Avg, Count
 from django.http import HttpResponse
 
@@ -11,6 +13,32 @@ from .serializers import DatasetSerializer, EquipmentRecordSerializer
 import pandas as pd
 from reportlab.pdfgen import canvas
 import io
+
+class UserRegistrationView(APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def post(self, request):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password1 = request.data.get('password1')
+        password2 = request.data.get('password2')
+        
+        if not all([username, email, password1, password2]):
+            return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if password1 != password2:
+            return Response({"error": "Passwords do not match"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if User.objects.filter(username=username).exists():
+            return Response({"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create user
+        user = User.objects.create_user(username=username, email=email, password=password1)
+        
+        # Generate token
+        token, _ = Token.objects.get_or_create(user=user)
+        
+        return Response({"key": token.key, "username": user.username}, status=status.HTTP_201_CREATED)
 
 class DatasetUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)

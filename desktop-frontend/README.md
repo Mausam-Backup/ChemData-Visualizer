@@ -22,25 +22,22 @@ The **Desktop Frontend** is a native Windows application providing powerful loca
 ## 🧠 Application Logic Flow
 
 ```mermaid
-graph LR
-    subgraph "Main Window"
-        Sidebar[Sidebar List] -- Clicked --> Loader[load_dataset()]
-        Loader -- Switch Page --> Stack{QStackedWidget}
+graph TB
+    Sidebar[Dataset Sidebar] -->|Click Item| Loader[Load Dataset Handler]
+    Loader -->|Switch View| Stack{Content Stack}
 
-        Stack -->|Page 0| Empty[Empty State]
-        Stack -->|Page 1| Dashboard[Analysis View]
-    end
+    Stack -->|Empty| EmptyView[Empty State Page]
+    Stack -->|Loaded| Dashboard[Analysis Dashboard]
 
-    subgraph "Data Processing"
-        Loader -- Request --> API[Django API]
-        API -- JSON --> Parser[Pandas DataFrame]
-        Parser -- Render --> Matplotlib[Figures & Canvas]
-        Parser -- Populate --> Table[QTableWidget]
-    end
+    Loader -->|API Request| Django[Django Backend]
+    Django -->|JSON Response| Parser[Pandas Parser]
 
-    Dashboard --> Controls{Dropdowns}
-    Controls -- Signal --> UpdateChart[update_scatter/bar()]
-    UpdateChart -- Redraw --> Matplotlib
+    Parser -->|Generate| Charts[Matplotlib Charts]
+    Parser -->|Fill| Table[Data Table Widget]
+
+    Dashboard -->|User Input| Dropdowns[Metric Selectors]
+    Dropdowns -->|Trigger| Redraw[Chart Update]
+    Redraw -->|Refresh| Charts
 ```
 
 ---
