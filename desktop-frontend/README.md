@@ -8,12 +8,14 @@ The **Desktop Frontend** is a native Windows application providing powerful loca
 
 ---
 
-## 🎨 Native UI & Animations
+## 🎨 Native UI & Visual Parity
 
-- **Modern Design**: Custom "Fusion" theme with a dark/clean stylesheet (`styles.py`).
-- **Split-Screen Auth**: A beautiful login window with a dedicated signup form, matching the web design.
-- **Animated Charts**: Overview bars animate smoothly upon loading, providing a premium feel.
-- **Dashboard Grid**: A responsive grid layout for key metrics (KPIs) and visualizations.
+- **Unified Design**: Matches the Web Frontend's **Teal (#0d9488) & Slate** theme for a consistent brand experience.
+- **Interactive Dashboards**:
+  - **Metric Switchers**: Dropdowns to toggle Bar Charts between Flowrate, Pressure, and Temperature.
+  - **Correlation Analysis**: Scatter plots with customizable X and Y axes.
+- **Advanced Plotting**: Uses `Matplotlib` + `Pandas` for robust data handling and rendering.
+- **Responsive Layout**: Utilizing `QStackedWidget` and scrollable areas to handle complex dashboards on any screen size.
 
 ---
 
@@ -25,8 +27,8 @@ The monolithic `main.py` has been refactored into a modular architecture for bet
 desktop-frontend/
 ├── 📂 ui/                  # UI Components
 │   ├── 📜 auth.py          # Login & Signup Window Logic
-│   ├── 📜 dashboard.py     # Main Application Interface
-│   └── 📜 styles.py        # Centralized CSS/QSS Stylesheet
+│   ├── 📜 dashboard.py     # Main Analysis Dashboard (Tabs, Charts, Tables)
+│   └── 📜 styles.py        # Centralized QSS Stylesheet (Teal Theme)
 ├── 📜 config.py            # Configuration Constants (API URL)
 ├── 📜 main.py              # Application Entry Point
 └── 📜 README.md            # Documentation
@@ -54,7 +56,7 @@ desktop-frontend/
 2.  **Install Dependencies**
 
     ```bash
-    pip install pyqt5 matplotlib requests
+    pip install pyqt5 matplotlib requests pandas
     ```
 
 3.  **Run Application**
@@ -72,18 +74,23 @@ Handles user onboarding.
 
 - **Login Mode**: Standard Username/Password auth.
 - **Signup Mode**: Extended form to create new accounts via the API.
-- **Visual Split**: Left-side form, Right-side marketing visuals.
+- **Visual Split**: Left-side form, Right-side marketing visuals (Teal accents).
 
 ### `ui/dashboard.py`
 
-The core workspace.
+The core workspace, refactored for web-parity.
 
 - **Tabbed Interface**:
-  1.  **Overview**: KPI Grid + Pie Chart.
-  2.  **Raw Data**: Full table view of the dataset.
-  3.  **Analytics**: Animated Bar Charts.
-- **Matplotlib Integration**: Embeds Matplotlib figures directly into PyQt widgets (`FigureCanvasQTAgg`).
-- **Timer Animations**: Uses `QTimer` to create smooth frame-by-frame graph animations.
+  1.  **Analysis Dashboard**:
+      - **KPI Cards**: Total Records, Avg Flow/Press/Temp.
+      - **Charts**:
+        - **Bar Chart**: Avg Metric by Equipment (Interactive Dropdown).
+        - **Donut Chart**: Equipment Type Distribution.
+        - **Trend Chart**: Live Process Trends (Flow & Pressure).
+        - **Scatter Chart**: Correlation Explorer (X vs Y Dropdowns).
+  2.  **Data Logs**:
+      - Detailed table with styled badges and conditional formatting (Red text for High Temp).
+- **Navigation**: Uses `QStackedWidget` to switch seamlessly between Empty State and Data View.
 
 ### `config.py`
 

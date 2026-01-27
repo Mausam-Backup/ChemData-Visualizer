@@ -13,9 +13,9 @@
 
 ## 📸 Preview
 
-|                                 **Web Dashboard**                                  |                                    **Desktop App**                                    |
-| :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
-| ![Web Dashboard Preview](./docs/web_preview.png) _Real-time Analytics & KPI Cards_ | ![Desktop App Preview](./docs/desktop_preview.png) _Native Interface with Dark Theme_ |
+|                                      **Web Dashboard**                                      |                                        **Desktop App**                                         |
+| :-----------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
+| ![Web Dashboard Preview](web-frontend/src/assets/web.png) _Real-time Analytics & KPI Cards_ | ![Desktop App Preview](web-frontend/src/assets/dekstop.png) _Native Interface with Teal Theme_ |
 
 ---
 
@@ -55,17 +55,18 @@ graph TD
   - JWT-based Token Authentication.
   - Google OAuth2 Integration (Web).
 - **📊 Advanced Visualization**:
-  - Interactive `Chart.js` graphs (Web).
-  - Animated `Matplotlib` charts (Desktop).
+  - **Web**: Interactive `Chart.js` graphs (Bar, Trend, Distribution, Scatter).
+  - **Desktop**: Native `Matplotlib` charts with interactive dropdowns & animations.
 - **📂 Dataset Management**:
   - Drag-and-drop CSV Upload.
   - User-specific vs. Global History isolation.
 - **📑 Reporting**:
-  - One-click Professional PDF Report Generation.
+  - One-click Professional PDF Report Generation (Tables, Charts, Branding).
   - Detailed "Report Cards" with header analysis.
 - **🎨 Modern UI/UX**:
-  - **Web**: Glassmorphism, Gradient Accents, Tailwind CSS.
-  - **Desktop**: Custom "Fusion" Dark Theme, Responsive Grid Layout.
+  - **Unified Theme**: Consistent Teal (`#0d9488`) & Slate design across Web and Desktop.
+  - **Responsive**: Grid layouts with skeletal loading states.
+  - **Interactive**: Filter charts by equipment type or metrics (Flow/Pressure/Temp).
 
 ---
 
@@ -80,6 +81,7 @@ graph TD
 | **Styling**      | **Tailwind CSS**              | Utility-first CSS framework for rapid UI dev.       |
 | **Desktop App**  | **PyQt5**                     | Python bindings for Qt5 application framework.      |
 | **Plotting**     | **Chart.js** / **Matplotlib** | Data visualization libraries.                       |
+| **Data Science** | **Pandas**                    | Data manipulation and analysis.                     |
 | **PDF**          | **ReportLab**                 | Programmatic PDF generation engine.                 |
 
 ---
