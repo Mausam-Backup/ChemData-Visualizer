@@ -1,0 +1,11 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Pump-A1,Pump,120.5,15.2,65.4
+Valve-X9,Valve,0,5.0,22.1
+Tank-T1,Tank,0,1.2,45.0
+Pump-B2,Pump,115.0,14.8,66.0
+HeatEx-H1,Exchanger,300.0,10.0,85.5
+Valve-Y2,Valve,0,4.8,21.5
+Pump-C3,Pump,122.1,15.5,64.8
+Tank-T2,Tank,0,1.1,44.2
+Mixer-M1,Mixer,50.0,2.0,30.0
+Pipe-P101,Pipe,120.5,15.0,65.0
