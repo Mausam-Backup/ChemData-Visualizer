@@ -10,7 +10,7 @@ import Support from './components/Support'
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [view, setView] = useState('dashboard'); // 'dashboard', 'analysis', 'login', 'signup'
+  const [view, setView] = useState('dashboard'); // 'dashboard', 'analysis', 'login', 'signup', 'features', 'support'
   const [selectedDatasetId, setSelectedDatasetId] = useState(null);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
