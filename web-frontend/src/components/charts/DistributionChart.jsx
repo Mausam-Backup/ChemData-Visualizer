@@ -65,7 +65,7 @@ export default function DistributionChart({ data, title = "Equipment Types" }) {
   const total = Object.values(data).reduce((a, b) => a + b, 0);
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-80 flex flex-col">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-96 flex flex-col">
         <h3 className="text-lg font-bold text-slate-800 mb-2">{title}</h3>
         <div className="flex-grow relative">
             <Doughnut data={chartData} options={options} />

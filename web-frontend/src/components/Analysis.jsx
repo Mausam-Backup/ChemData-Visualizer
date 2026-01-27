@@ -128,12 +128,16 @@ export default function Analysis({ datasetId }) {
              </div>
 
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-2">
                     <Skeleton className="h-96 w-full rounded-2xl" />
-                    <Skeleton className="h-80 w-full rounded-2xl" />
                 </div>
-                <div className="space-y-6">
+                <div>
+                     <Skeleton className="h-96 w-full rounded-2xl" />
+                </div>
+                <div className="lg:col-span-2">
                      <Skeleton className="h-80 w-full rounded-2xl" />
+                </div>
+                <div>
                      <Skeleton className="h-80 w-full rounded-2xl" />
                 </div>
              </div>
@@ -198,21 +202,25 @@ export default function Analysis({ datasetId }) {
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Main Trend Chart - Spans 2 cols */}
-                <div className="lg:col-span-2 space-y-6">
+                {/* Row 1 */}
+                <div className="lg:col-span-2">
                     <TrendChart data={records} title="Live Process Trends (Flow & Pressure)" />
-                    <BarChart data={getBarData()} title="Average Flowrate by Equipment Type" />
+                </div>
+                <div>
+                     <DistributionChart data={stats.type_distribution} />
                 </div>
 
-                {/* Secondary Charts Stack */}
-                <div className="space-y-6">
-                    <DistributionChart data={stats.type_distribution} />
+                {/* Row 2 */}
+                <div className="lg:col-span-2">
+                     <BarChart data={getBarData()} title="Average Flowrate by Equipment Type" />
+                </div>
+                <div>
                     <CorrelationChart data={records} />
                 </div>
             </div>
 
             {/* Data Table */}
-            <div className="bg-white shadow-sm border border-slate-100 rounded-2xl overflow-hidden">
+            <div className="bg-white shadow-sm border border-slate-100 rounded-2xl overflow-hidden mt-6">
                 <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                     <h3 className="text-lg font-bold text-slate-900">equipment_log_2026.csv</h3>
                     <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Showing all {records.length} records</span>
