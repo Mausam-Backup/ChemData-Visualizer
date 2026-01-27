@@ -61,6 +61,7 @@ class GlobalDatasetListView(generics.ListAPIView):
 class DatasetRecordsView(generics.ListAPIView):
     serializer_class = EquipmentRecordSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None
     
     def get_queryset(self):
         dataset_id = self.kwargs['id']
@@ -95,22 +96,82 @@ class DatasetPDFView(APIView):
         buffer = io.BytesIO()
         p = canvas.Canvas(buffer)
         
-        p.drawString(100, 800, f"Report for Dataset ID {id}")
+        # --- HEADER ---
+        p.setFont("Helvetica-Bold", 18)
+        p.setFillColorRGB(0.2, 0.2, 0.6) # Indigo-ish
+        p.drawString(50, 800, "ChemData Visualizer Report")
         
+        p.setFont("Helvetica", 10)
+        p.setFillColorRGB(0.5, 0.5, 0.5)
+        p.drawString(50, 785, f"Dataset Report ID: {id}")
+        p.line(50, 775, 550, 775)
+        
+        # --- SUMMARY SECTION ---
         records = EquipmentRecord.objects.filter(dataset_id=id)
         total = records.count()
+
         if total == 0:
-            p.drawString(100, 780, "No data available.")
+            p.drawString(50, 750, "No data available in this dataset.")
         else:
             avg_flow = records.aggregate(Avg('flowrate'))['flowrate__avg']
             avg_press = records.aggregate(Avg('pressure'))['pressure__avg']
             avg_temp = records.aggregate(Avg('temperature'))['temperature__avg']
             
-            p.drawString(100, 760, f"Total Records: {total}")
-            p.drawString(100, 740, f"Avg Flowrate: {avg_flow:.2f}")
-            p.drawString(100, 720, f"Avg Pressure: {avg_press:.2f}")
-            p.drawString(100, 700, f"Avg Temperature: {avg_temp:.2f}")
+            p.setFont("Helvetica-Bold", 12)
+            p.setFillColorRGB(0, 0, 0)
+            p.drawString(50, 750, "Summary Metrics")
             
+            p.setFont("Helvetica", 10)
+            p.drawString(50, 730, f"Total Individual Records: {total}")
+            
+            # Simple Metrics Box
+            p.rect(50, 680, 500, 40, stroke=1, fill=0)
+            p.line(216, 680, 216, 720)
+            p.line(382, 680, 382, 720)
+            
+            p.setFont("Helvetica-Bold", 10)
+            p.drawCentredString(133, 705, "Avg Flowrate")
+            p.drawCentredString(299, 705, "Avg Pressure")
+            p.drawCentredString(465, 705, "Avg Temp")
+            
+            p.setFont("Helvetica", 10)
+            p.drawCentredString(133, 690, f"{avg_flow:.2f}")
+            p.drawCentredString(299, 690, f"{avg_press:.2f}")
+            p.drawCentredString(465, 690, f"{avg_temp:.2f}")
+
+            # --- DATA TABLE ---
+            y = 640
+            p.setFont("Helvetica-Bold", 10)
+            p.setFillColorRGB(0.2, 0.2, 0.2)
+            
+            # Table Headers
+            p.drawString(50, y, "Equipment Name")
+            p.drawString(200, y, "Type")
+            p.drawString(300, y, "Flowrate")
+            p.drawString(400, y, "Pressure")
+            p.drawString(500, y, "Temp")
+            
+            p.setStrokeColorRGB(0.8, 0.8, 0.8)
+            p.line(50, y-5, 550, y-5)
+            y -= 25
+            
+            p.setFont("Helvetica", 9)
+            
+            for record in records:
+                if y < 50:
+                    p.showPage()
+                    y = 800
+                
+                p.drawString(50, y, str(record.equipment_name)[:20])
+                p.drawString(200, y, str(record.equipment_type))
+                p.drawString(300, y, f"{record.flowrate:.2f}")
+                p.drawString(400, y, f"{record.pressure:.2f}")
+                p.drawString(500, y, f"{record.temperature:.2f}")
+                
+                # Zebra striping (optional, keeping clean white for print)
+                p.line(50, y-5, 550, y-5)
+                y -= 20
+
         p.showPage()
         p.save()
         
