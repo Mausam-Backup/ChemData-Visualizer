@@ -1,3 +1,4 @@
+import os
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +7,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QFileDialog, QTabWidget, QMessageBox, QListWidget, QListWidgetItem,
                              QFrame, QGridLayout, QHeaderView, QAbstractItemView, QStackedWidget, QScrollArea, QComboBox)
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor, QBrush, QFont
+from PyQt5.QtGui import QColor, QBrush, QFont, QIcon
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
@@ -22,6 +23,11 @@ class MainWindow(QMainWindow):
         self.headers = {'Authorization': f'Token {token}'}
         self.setWindowTitle("ChemViz Desktop")
         self.resize(1400, 900)
+        
+        # Set window icon
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'app_icon.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
         
         central_widget = QWidget()
         self.setCentralWidget(central_widget)

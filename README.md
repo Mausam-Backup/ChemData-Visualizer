@@ -5,7 +5,7 @@
 ![Django](https://img.shields.io/badge/Django-5.0-092E20?logo=django&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
 ![PyQt5](https://img.shields.io/badge/PyQt-5-41CD52?logo=qt&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-Mausam%20Kar-red)
 
 **ChemData Visualizer** is a robust, full-stack application designed for real-time monitoring and analysis of chemical equipment data. It features a secure **Django REST API** backend, a modern **React** web dashboard, and a native **PyQt5** desktop application, ensuring seamless data access across platforms.
 
@@ -204,6 +204,6 @@ Contributions are welcome! Please fork the repository and create a pull request.
 
 ---
 
-## 📄 License
+## 💝 Credits
 
-Distributed under the MIT License. See `LICENSE` for more information.
+**Made with ❤️ by Mausam Kar**

@@ -1,7 +1,9 @@
+import os
 import requests
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QLineEdit, QPushButton, QMessageBox, QFrame)
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 
 from config import API_URL
 from ui.dashboard import MainWindow
@@ -11,6 +13,12 @@ class AuthWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Welcome - ChemData Visualizer")
         self.resize(1000, 700)
+        
+        # Set window icon
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'app_icon.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+        
         self.setStyleSheet(stylesheet)
         
         # Main Container
