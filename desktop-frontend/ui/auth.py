@@ -36,7 +36,7 @@ class AuthWindow(QMainWindow):
         lbl_logo = QLabel("C")
         lbl_logo.setAlignment(Qt.AlignCenter)
         lbl_logo.setFixedSize(60, 60)
-        lbl_logo.setStyleSheet("background-color: #4f46e5; color: white; font-size: 30px; font-weight: bold; border-radius: 10px;")
+        lbl_logo.setStyleSheet("background-color: #0d9488; color: white; font-size: 30px; font-weight: bold; border-radius: 10px;")
         form_layout.addWidget(lbl_logo)
         
         # Title
@@ -89,7 +89,7 @@ class AuthWindow(QMainWindow):
         # Toggle Mode
         self.btn_toggle = QPushButton("Don't have an account? Sign Up")
         self.btn_toggle.setCursor(Qt.PointingHandCursor)
-        self.btn_toggle.setStyleSheet("background: none; color: #4f46e5; border: none; font-weight: normal;")
+        self.btn_toggle.setStyleSheet("background: none; color: #0d9488; border: none; font-weight: normal;")
         self.btn_toggle.clicked.connect(self.toggle_mode)
         form_layout.addWidget(self.btn_toggle)
         
@@ -147,7 +147,7 @@ class AuthWindow(QMainWindow):
         bars_layout = QHBoxLayout()
         for h in [40, 70, 50, 85, 60]:
             bar = QFrame()
-            bar.setStyleSheet(f"background-color: #6366f1; border-radius: 4px; min-height: {h}px;")
+            bar.setStyleSheet(f"background-color: #0d9488; border-radius: 4px; min-height: {h}px;")
             bars_layout.addWidget(bar)
         card_layout.addLayout(bars_layout)
         
