@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Features() {
     return (
-        <div className="h-full bg-slate-50 overflow-hidden relative">
+        <div className="min-h-screen bg-slate-50 overflow-x-hidden relative">
              {/* --- Hero Section --- */}
              <div className="relative w-full h-[500px] bg-white overflow-hidden">
                 {/* Top Left Curved Shape (Teal) */}
@@ -34,12 +34,12 @@ export default function Features() {
 
                 {/* Main Hero Text */}
                 <div className="absolute top-[160px] left-[10%] md:left-[30%] z-10 max-w-lg">
-                    <p className="text-slate-500 uppercase tracking-widest text-sm font-semibold mb-2">Capabilities</p>
+                    <p className="text-white/80 md:text-slate-500 uppercase tracking-widest text-sm font-semibold mb-2">Capabilities</p>
                     <h1 className="text-5xl md:text-6xl font-black text-slate-800 leading-tight">
-                        <span className="text-primary-600 block">Powerful Tools</span>
-                        <span className="text-slate-400 text-3xl md:text-4xl font-light block mt-2">For Complex Data</span>
+                        <span className="text-white md:text-primary-600 block">Powerful Tools</span>
+                        <span className="text-slate-400 md:text-slate-400 text-3xl md:text-4xl font-light block mt-2">For Complex Data</span>
                     </h1>
-                     <p className="mt-6 text-slate-500 max-w-md">
+                     <p className="mt-6 text-slate-600 md:text-slate-500 max-w-md">
                         Discover the suite of features designed to streamline your chemical engineering workflows.
                     </p>
                 </div>
@@ -103,11 +103,11 @@ export default function Features() {
             </div>
 
             {/* CTA Section */}
-            <div className="py-20 bg-slate-900 text-center relative overflow-hidden">
+            <div className="py-20 bg-yellow-400 text-center relative overflow-hidden">
                 <div className="relative z-10 max-w-2xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-white mb-6">Ready to optimize your workflow?</h2>
-                    <p className="text-slate-400 mb-8">Join hundreds of chemical engineers using ChemViz to drive production efficiency.</p>
-                    <button className="bg-primary-600 hover:bg-primary-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-primary-500/30 transition-all hover:scale-105">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-6">Ready to optimize your workflow?</h2>
+                    <p className="text-slate-800 font-medium mb-8">Join hundreds of chemical engineers using ChemViz to drive production efficiency.</p>
+                    <button className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-slate-900/20 transition-all hover:scale-105">
                         Get Started Now
                     </button>
                 </div>

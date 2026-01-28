@@ -25,7 +25,7 @@ export default function Support() {
     };
 
     return (
-        <div className="h-full bg-slate-50 overflow-hidden relative">
+        <div className="min-h-screen bg-slate-50 overflow-x-hidden relative">
             {/* --- Hero Section (Live Support Design) --- */}
             <div className="relative w-full h-[500px] bg-white overflow-hidden">
                 {/* Top Left Curved Shape (Teal) */}
@@ -57,12 +57,12 @@ export default function Support() {
 
                 {/* Main Hero Text */}
                 <div className="absolute top-[160px] left-[10%] md:left-[30%] z-10 max-w-lg">
-                    <p className="text-slate-500 uppercase tracking-widest text-sm font-semibold mb-2">Welcome to our site</p>
+                    <p className="text-white/80 md:text-slate-500 uppercase tracking-widest text-sm font-semibold mb-2">Welcome to our site</p>
                     <h1 className="text-5xl md:text-6xl font-black text-slate-800 leading-tight">
-                        <span className="text-primary-600 block">Live Support</span>
-                        <span className="text-orange-400 text-3xl md:text-4xl font-light block mt-2">ChemViz Platform</span>
+                        <span className="text-white md:text-primary-600 block">Live Support</span>
+                        <span className="text-slate-800 md:text-orange-400 text-3xl md:text-4xl font-light block mt-2">ChemViz Platform</span>
                     </h1>
-                     <p className="mt-6 text-slate-500 max-w-md">
+                     <p className="mt-6 text-slate-600 md:text-slate-500 max-w-md">
                         Our engineering team involves 100+ experts availble to assist you with data integration and anomaly review.
                     </p>
 
