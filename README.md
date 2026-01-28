@@ -1,13 +1,20 @@
 # ChemData Visualizer 🧪📊
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Django](https://img.shields.io/badge/Django-5.0-092E20?logo=django&logoColor=white)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
-![PyQt5](https://img.shields.io/badge/PyQt-5-41CD52?logo=qt&logoColor=white)
-![Made with Love](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-Mausam%20Kar-red)
+<div align="center">
 
-**ChemData Visualizer** is a robust, full-stack application designed for real-time monitoring and analysis of chemical equipment data. It features a secure **Django REST API** backend, a modern **React** web dashboard, and a native **PyQt5** desktop application, ensuring seamless data access across platforms.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github)
+![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)
+![Docker](https://img.shields.io/badge/docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.0-092E20?style=for-the-badge&logo=django&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![PyQt5](https://img.shields.io/badge/PyQt-5-41CD52?style=for-the-badge&logo=qt&logoColor=white)
+
+</div>
+
+**ChemData Visualizer** is a robust, full-stack application designed for real-time monitoring and analysis of chemical equipment data. It features a secure **Django REST API** backend, a modern **React** web dashboard, and a native **PyQt5** desktop application, ensuring seamless data access across platforms using **Docker** for easy deployment.
 
 ---
 
@@ -23,20 +30,22 @@
 
 ```mermaid
 graph TD
-    subgraph "Client Layer"
-        Web[💻 React Web App]
-        Desktop[🖥️ PyQt Desktop App]
-    end
+    subgraph "Dockerized Environment"
+        subgraph "Client Layer"
+            Web[💻 React Web App]
+            Desktop[🖥️ PyQt Desktop App]
+        end
 
-    subgraph "API Layer"
-        LB["Load Balancer / Nginx"]
-        Django["Django REST Framework"]
-        Auth["🔐 Auth Service (JWT/OAuth)"]
-    end
+        subgraph "API Layer"
+            LB["Nginx / Gunicorn"]
+            Django["Django REST Framework"]
+            Auth["🔐 Auth Service (JWT/OAuth)"]
+        end
 
-    subgraph "Data Layer"
-        DB[("SQLite / PostgreSQL")]
-        Media["📂 Media Storage (CSVs/PDFs)"]
+        subgraph "Data Layer"
+            DB[("PostgreSQL / SQLite")]
+            Media["📂 Media Storage (CSVs/PDFs)"]
+        end
     end
 
     Web -->|HTTP/JSON| Django

@@ -1,8 +1,13 @@
 # 🌐 Web Frontend
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css&logoColor=white)
+<div align="center">
+
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-3.9-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
+
+</div>
 
 The **Web Frontend** provides a modern, responsive dashboard for users to interact with the ChemData Visualizer system. Built with **React** and **Vite**, it offers high performance and a polished UI using **Tailwind CSS**.
 
@@ -17,6 +22,7 @@ The **Web Frontend** provides a modern, responsive dashboard for users to intera
   - **Dashboard Layout**: Sticky "Capsule" Navigation Bar.
   - **Interactive Graphs**: Dynamic Bar Charts powered by `Chart.js`.
   - **KPI Cards**: At-a-glance statistical summaries.
+  - **Features & Support**: Dedicated pages for capability overview and user support.
 
 ---
 
@@ -32,6 +38,8 @@ graph TD
     Layout --> Content[Page Content]
 
     Content -->|Dashboard| Analysis[Analysis.jsx]
+    Content -->|Features| Features[Features.jsx]
+    Content -->|Support| Support[Support.jsx]
 
     subgraph "Dashboard Widgets"
         Analysis --> KPI[StatCard Components]
@@ -56,7 +64,9 @@ web-frontend/
 │   │   ├── 📜 Login.jsx    # Auth Screens
 │   │   ├── 📜 Signup.jsx
 │   │   ├── 📜 Analysis.jsx # Main Dashboard & Charts
-│   │   └── 📜 Navbar.jsx   # (Integrated in App.jsx)
+│   │   ├── 📜 Features.jsx # Capabilities Overview
+│   │   ├── 📜 Support.jsx  # Contact & Links
+│   │   └── 📜 Sidebar.jsx  # Navigation
 │   ├── 📜 App.jsx          # Main Router & Layout Logic
 │   ├── 📜 api.js           # Axios Instance & Interceptors
 │   ├── 📜 main.jsx         # Entry Point

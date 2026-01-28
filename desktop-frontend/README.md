@@ -1,10 +1,14 @@
 # 🖥️ Desktop Application
 
-![PyQt5](https://img.shields.io/badge/PyQt-5-41CD52?logo=qt&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3.5-11557c?logo=python&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+<div align="center">
 
-The **Desktop Frontend** is a native Windows application providing powerful local data analysis capabilities. It mirrors the web platform's functionality but leverages native UI performance and system integration using **PyQt5**.
+![PyQt5](https://img.shields.io/badge/PyQt-5-41CD52?style=for-the-badge&logo=qt&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-3.5-11557c?style=for-the-badge&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+</div>
+
+The **Desktop Frontend** is a native Windows application providing powerful local data analysis capabilities. It mirrors the web platform's functionality but leverages native UI performance and system integration using **PyQt5**. It connects seamlessly to the Dockerized backend.
 
 ---
 
