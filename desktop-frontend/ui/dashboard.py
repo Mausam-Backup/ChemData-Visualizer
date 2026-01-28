@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton, QTableWidget, QTableWidgetItem, 
                              QFileDialog, QTabWidget, QMessageBox, QListWidget, QListWidgetItem,
                              QFrame, QGridLayout, QHeaderView, QAbstractItemView, QStackedWidget, QScrollArea, QComboBox)
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor, QBrush, QFont, QIcon
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QColor, QBrush, QFont, QIcon, QDesktopServices
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
@@ -74,6 +74,33 @@ class MainWindow(QMainWindow):
         self.btn_upload.setCursor(Qt.PointingHandCursor)
         self.btn_upload.clicked.connect(self.upload_csv)
         sidebar_layout.addWidget(self.btn_upload)
+
+        # Connect Group
+        sidebar_layout.addSpacing(20)
+        lbl_connect = QLabel("CONNECT")
+        lbl_connect.setStyleSheet("font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 1.2px;")
+        sidebar_layout.addWidget(lbl_connect)
+
+        def open_url(url):
+            QDesktopServices.openUrl(QUrl(url))
+
+        btn_portfolio = QPushButton("Creator Portfolio")
+        btn_portfolio.setCursor(Qt.PointingHandCursor)
+        btn_portfolio.setStyleSheet("text-align: left; padding: 6px; border: none; color: #64748b; font-weight: 600; background: transparent;")
+        btn_portfolio.clicked.connect(lambda: open_url("https://mausam04.vercel.app"))
+        sidebar_layout.addWidget(btn_portfolio)
+
+        btn_github = QPushButton("GitHub")
+        btn_github.setCursor(Qt.PointingHandCursor)
+        btn_github.setStyleSheet("text-align: left; padding: 6px; border: none; color: #64748b; font-weight: 600; background: transparent;")
+        btn_github.clicked.connect(lambda: open_url("https://github.com/Mausam5055/"))
+        sidebar_layout.addWidget(btn_github)
+
+        btn_linkedin = QPushButton("LinkedIn")
+        btn_linkedin.setCursor(Qt.PointingHandCursor)
+        btn_linkedin.setStyleSheet("text-align: left; padding: 6px; border: none; color: #64748b; font-weight: 600; background: transparent;")
+        btn_linkedin.clicked.connect(lambda: open_url("https://www.linkedin.com/in/mausam-kar-6388861a7/"))
+        sidebar_layout.addWidget(btn_linkedin)
 
         # Logout Link (Bottom)
         sidebar_layout.addStretch()
