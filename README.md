@@ -48,43 +48,48 @@ The platform enables chemical engineers and operators to monitor equipment perfo
 
 Browse through our comprehensive web dashboard features:
 
-```carousel
-![Web App - Login Page](Preview-Images/Web-app/1.png)
-**Login Page** - Secure authentication with email/password and Google OAuth integration
-<!-- slide -->
-![Web App - Signup Page](Preview-Images/Web-app/2.png)
-**Signup Page** - User registration with form validation and modern UI
-<!-- slide -->
-![Web App - Dashboard Overview](Preview-Images/Web-app/3.png)
-**Dashboard Overview** - Real-time analytics, KPI cards, and interactive charts
-<!-- slide -->
-![Web App - Data Upload](Preview-Images/Web-app/4.png)
-**Data Upload** - Drag-and-drop CSV file upload interface
-<!-- slide -->
-![Web App - Analytics Charts](Preview-Images/Web-app/5.png)
-**Analytics Charts** - Interactive Chart.js visualizations with multiple chart types
-<!-- slide -->
-![Web App - Equipment Statistics](Preview-Images/Web-app/6.png)
-**Equipment Statistics** - Detailed metrics and distribution analysis
-<!-- slide -->
-![Web App - Dataset Management](Preview-Images/Web-app/7.png)
-**Dataset Management** - View and manage uploaded datasets
-<!-- slide -->
-![Web App - Trend Analysis](Preview-Images/Web-app/8.png)
-**Trend Analysis** - Line charts showing trends over time
-<!-- slide -->
-![Web App - Correlation Explorer](Preview-Images/Web-app/9.png)
-**Correlation Explorer** - Scatter plots for correlation analysis
-<!-- slide -->
-![Web App - Report Generation](Preview-Images/Web-app/10.png)
-**Report Generation** - Generate and download professional PDF reports
-<!-- slide -->
-![Web App - Data Table View](Preview-Images/Web-app/11.png)
-**Data Table View** - Tabular view of equipment records with sorting and filtering
-<!-- slide -->
-![Web App - Settings & Profile](Preview-Images/Web-app/12.png)
-**Settings & Profile** - User profile management and application settings
-```
+#### 🔐 Authentication
+
+| Login Page                                                             | Signup Page                                          |
+| ---------------------------------------------------------------------- | ---------------------------------------------------- |
+| ![Login Page](Preview-Images/Web-app/1.png)                            | ![Signup Page](Preview-Images/Web-app/2.png)         |
+| Secure authentication with email/password and Google OAuth integration | User registration with form validation and modern UI |
+
+#### 📊 Dashboard & Analytics
+
+![Dashboard Overview](Preview-Images/Web-app/3.png)
+_Real-time analytics, KPI cards, and interactive charts_
+
+![Analytics Charts](Preview-Images/Web-app/5.png)
+_Interactive Chart.js visualizations with multiple chart types_
+
+![Equipment Statistics](Preview-Images/Web-app/6.png)
+_Detailed metrics and distribution analysis_
+
+#### 📂 Data Management
+
+| Data Upload                                  | Dataset Management                                  |
+| -------------------------------------------- | --------------------------------------------------- |
+| ![Data Upload](Preview-Images/Web-app/4.png) | ![Dataset Management](Preview-Images/Web-app/7.png) |
+| Drag-and-drop CSV file upload interface      | View and manage uploaded datasets                   |
+
+#### 📈 Data Analysis
+
+![Trend Analysis](Preview-Images/Web-app/8.png)
+_Line charts showing trends over time_
+
+![Correlation Explorer](Preview-Images/Web-app/9.png)
+_Scatter plots for correlation analysis_
+
+![Data Table View](Preview-Images/Web-app/11.png)
+_Tabular view of equipment records with sorting and filtering_
+
+#### 📄 Reports & Settings
+
+| Report Generation                                   | Settings & Profile                                   |
+| --------------------------------------------------- | ---------------------------------------------------- |
+| ![Report Generation](Preview-Images/Web-app/10.png) | ![Settings & Profile](Preview-Images/Web-app/12.png) |
+| Generate and download professional PDF reports      | User profile management and application settings     |
 
 ---
 
@@ -92,19 +97,16 @@ Browse through our comprehensive web dashboard features:
 
 _Native PyQt5 application with Matplotlib charts, teal-slate theme, and local data analysis_
 
-```carousel
-![Desktop App - Login](Preview-Images/Dekstop-app/1.png)
-**Login Screen** - Desktop authentication interface with modern styling
-<!-- slide -->
-![Desktop App - Dashboard](Preview-Images/Dekstop-app/2.png)
-**Analytics Dashboard** - Main dashboard with Matplotlib charts and data visualization
-<!-- slide -->
-![Desktop App - Signup](Preview-Images/Dekstop-app/3.png)
-**Signup Screen** - User registration interface for desktop application
-<!-- slide -->
-![Desktop App - Data View](Preview-Images/Dekstop-app/4.png)
-**Data Table View** - Tabbed interface showing equipment records and logs
-```
+| Login Screen                                         | Signup Screen                                       |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| ![Desktop Login](Preview-Images/Dekstop-app/1.png)   | ![Desktop Signup](Preview-Images/Dekstop-app/3.png) |
+| Desktop authentication interface with modern styling | User registration interface for desktop application |
+
+![Analytics Dashboard](Preview-Images/Dekstop-app/2.png)
+_Main dashboard with Matplotlib charts and data visualization_
+
+![Data Table View](Preview-Images/Dekstop-app/4.png)
+_Tabbed interface showing equipment records and logs_
 
 ---
 
@@ -112,13 +114,11 @@ _Native PyQt5 application with Matplotlib charts, teal-slate theme, and local da
 
 _Professional PDF reports with charts, tables, and company branding_
 
-```carousel
-![PDF Report - Cover Page](Preview-Images/PDF/1.png)
-**Report Cover** - Professional title page with dataset information and branding
-<!-- slide -->
-![PDF Report - Data Analysis](Preview-Images/PDF/2.png)
-**Analysis Pages** - Comprehensive data tables, statistical charts, and equipment metrics
-```
+![PDF Report Cover](Preview-Images/PDF/1.png)
+_Professional title page with dataset information and branding_
+
+![PDF Report Analysis](Preview-Images/PDF/2.png)
+_Comprehensive data tables, statistical charts, and equipment metrics_
 
 </div>
 
