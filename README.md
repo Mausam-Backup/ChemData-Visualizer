@@ -44,6 +44,14 @@ The platform enables chemical engineers and operators to monitor equipment perfo
 
 <div align="center">
 
+### 🖥️ Desktop Application
+
+|                                        |                                        |
+| -------------------------------------- | -------------------------------------- |
+| ![1](Preview-Images/Dekstop-app/1.png) | ![2](Preview-Images/Dekstop-app/2.png) |
+
+---
+
 ### 🌐 Web Application Screenshots
 
 |                                      |                                      |
@@ -54,14 +62,6 @@ The platform enables chemical engineers and operators to monitor equipment perfo
 | ![7](Preview-Images/Web-app/7.png)   | ![8](Preview-Images/Web-app/8.png)   |
 | ![9](Preview-Images/Web-app/9.png)   | ![10](Preview-Images/Web-app/10.png) |
 | ![11](Preview-Images/Web-app/11.png) | ![12](Preview-Images/Web-app/12.png) |
-
----
-
-### 🖥️ Desktop Application
-
-|                                        |                                        |
-| -------------------------------------- | -------------------------------------- |
-| ![1](Preview-Images/Dekstop-app/1.png) | ![2](Preview-Images/Dekstop-app/2.png) |
 
 ---
 
