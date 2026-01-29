@@ -106,6 +106,20 @@ _Native PyQt5 application with Matplotlib charts, teal-slate theme, and local da
 **Data Table View** - Tabbed interface showing equipment records and logs
 ```
 
+---
+
+### 📄 PDF Report Generation
+
+_Professional PDF reports with charts, tables, and company branding_
+
+```carousel
+![PDF Report - Cover Page](Preview-Images/PDF/1.png)
+**Report Cover** - Professional title page with dataset information and branding
+<!-- slide -->
+![PDF Report - Data Analysis](Preview-Images/PDF/2.png)
+**Analysis Pages** - Comprehensive data tables, statistical charts, and equipment metrics
+```
+
 </div>
 
 ---
