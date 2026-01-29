@@ -59,17 +59,18 @@ The platform enables chemical engineers and operators to monitor equipment perfo
 
 ### 🖥️ Desktop Application
 
-![Login](Preview-Images/Dekstop-app/1.png)
-![Dashboard](Preview-Images/Dekstop-app/2.png)
-![Signup](Preview-Images/Dekstop-app/3.png)
-![Data View](Preview-Images/Dekstop-app/4.png)
+|                                        |                                        |
+| -------------------------------------- | -------------------------------------- |
+| ![1](Preview-Images/Dekstop-app/1.png) | ![2](Preview-Images/Dekstop-app/2.png) |
+| ![3](Preview-Images/Dekstop-app/3.png) | ![4](Preview-Images/Dekstop-app/4.png) |
 
 ---
 
 ### 📄 PDF Report Generation
 
-![Cover](Preview-Images/PDF/1.png)
-![Analysis](Preview-Images/PDF/2.png)
+|                                |                                |
+| ------------------------------ | ------------------------------ |
+| ![1](Preview-Images/PDF/1.png) | ![2](Preview-Images/PDF/2.png) |
 
 </div>
 
