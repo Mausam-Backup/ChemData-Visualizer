@@ -33,7 +33,7 @@
 - 🔌 **RESTful API Backend** - Django REST Framework with robust data processing
 - 📊 **Advanced Analytics** - Statistical analysis, trend visualization, and correlation studies
 - 📑 **Professional Reporting** - Automated PDF report generation with charts and branding
-- 🔐 **Secure Authentication** - JWT tokens and Google OAuth2 integration
+- 🔐 **Secure Authentication** - JWT tokens and Google OAuth2 integration (Future Feature)
 - 🐳 **Docker Support** - Containerized deployment for production environments
 
 The platform enables chemical engineers and operators to monitor equipment performance, analyze trends, detect anomalies, and generate comprehensive reports with just a few clicks.
@@ -203,12 +203,12 @@ graph TB
 
 ### 🔐 Authentication & Security
 
-| Feature                      | Web App | Desktop App |
-| ---------------------------- | ------- | ----------- |
-| **JWT Token Authentication** | ✅      | ✅          |
-| **Google OAuth2**            | ✅      | ❌          |
-| **Session Management**       | ✅      | ✅          |
-| **Secure Password Hashing**  | ✅      | ✅          |
+| Feature                      | Web App     | Desktop App |
+| ---------------------------- | ----------- | ----------- |
+| **JWT Token Authentication** | ✅          | ✅          |
+| **Google OAuth2**            | ✅ (Future) | ❌          |
+| **Session Management**       | ✅          | ✅          |
+| **Secure Password Hashing**  | ✅          | ✅          |
 
 ### 📊 Data Visualization
 
@@ -277,7 +277,7 @@ graph TB
 | **ReportLab**             | Latest  | PDF generation                  |
 | **Matplotlib**            | 3.5+    | Chart generation (backend)      |
 | **django-cors-headers**   | Latest  | CORS support                    |
-| **django-allauth**        | Latest  | Social authentication           |
+| **django-allauth**        | Latest  | Social authentication (Future)  |
 | **dj-rest-auth**          | Latest  | REST authentication             |
 | **PyJWT**                 | Latest  | JSON Web Tokens                 |
 | **python-dotenv**         | Latest  | Environment variable management |
@@ -287,15 +287,15 @@ graph TB
 
 #### Web Application
 
-| Technology              | Version | Purpose                     |
-| ----------------------- | ------- | --------------------------- |
-| **React**               | 19.2.0  | UI library                  |
-| **Vite**                | 7.2.4   | Build tool and dev server   |
-| **TailwindCSS**         | 3.4.17  | Utility-first CSS framework |
-| **Chart.js**            | 4.5.1   | Data visualization          |
-| **react-chartjs-2**     | 5.3.1   | React wrapper for Chart.js  |
-| **Axios**               | 1.13.3  | HTTP client                 |
-| **@react-oauth/google** | 0.13.4  | Google OAuth integration    |
+| Technology              | Version | Purpose                           |
+| ----------------------- | ------- | --------------------------------- |
+| **React**               | 19.2.0  | UI library                        |
+| **Vite**                | 7.2.4   | Build tool and dev server         |
+| **TailwindCSS**         | 3.4.17  | Utility-first CSS framework       |
+| **Chart.js**            | 4.5.1   | Data visualization                |
+| **react-chartjs-2**     | 5.3.1   | React wrapper for Chart.js        |
+| **Axios**               | 1.13.3  | HTTP client                       |
+| **@react-oauth/google** | 0.13.4  | Google OAuth integration (Future) |
 
 #### Desktop Application
 
@@ -570,12 +570,12 @@ http://127.0.0.1:8000/api/
 
 ### Authentication Endpoints
 
-| Method | Endpoint                  | Description                  | Authentication |
-| ------ | ------------------------- | ---------------------------- | -------------- |
-| `POST` | `/api/auth/registration/` | Register new user account    | Public         |
-| `POST` | `/api/api-token-auth/`    | Login and get JWT token      | Public         |
-| `POST` | `/accounts/google/login/` | Google OAuth2 authentication | Public         |
-| `POST` | `/api/auth/logout/`       | Logout and invalidate token  | Required       |
+| Method | Endpoint                  | Description                           | Authentication |
+| ------ | ------------------------- | ------------------------------------- | -------------- |
+| `POST` | `/api/auth/registration/` | Register new user account             | Public         |
+| `POST` | `/api/api-token-auth/`    | Login and get JWT token               | Public         |
+| `POST` | `/accounts/google/login/` | Google OAuth2 authentication (Future) | Public         |
+| `POST` | `/api/auth/logout/`       | Logout and invalidate token           | Required       |
 
 **Registration Example:**
 
