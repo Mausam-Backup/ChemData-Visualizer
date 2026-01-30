@@ -522,14 +522,14 @@ python main.py
 
 Create a `.env` file in the `backend/` directory:
 
-| Variable               | Description                      | Example                                     | Required |
-| ---------------------- | -------------------------------- | ------------------------------------------- | -------- |
-| `SECRET_KEY`           | Django secret key                | `your-secret-key-here`                      | ✅       |
-| `DEBUG`                | Debug mode                       | `True` (dev), `False` (prod)                | ✅       |
-| `ALLOWED_HOSTS`        | Allowed host domains             | `localhost,127.0.0.1`                       | ✅       |
-| `GOOGLE_CLIENT_ID`     | Google OAuth client ID           | `your-client-id.apps.googleusercontent.com` | ❌       |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth secret              | `your-client-secret`                        | ❌       |
-| `DATABASE_URL`         | PostgreSQL connection (optional) | `postgresql://user:pass@localhost/dbname`   | ❌       |
+| Variable               | Description                      | Example                                         | Required |
+| ---------------------- | -------------------------------- | ----------------------------------------------- | -------- |
+| `SECRET_KEY`           | Django secret key                | `your-secret-key-here`                          | ✅       |
+| `DEBUG`                | Debug mode                       | `True` (dev), `False` (prod)                    | ✅       |
+| `ALLOWED_HOSTS`        | Allowed host domains             | `localhost,127.0.0.1`                           | ✅       |
+| `GOOGLE_CLIENT_ID`     | Google OAuth client ID           | `your-client-id` (Optional - Commented out)     | ❌       |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth secret              | `your-client-secret` (Optional - Commented out) | ❌       |
+| `DATABASE_URL`         | PostgreSQL connection (optional) | `postgresql://user:pass@localhost/dbname`       | ❌       |
 
 **Example `.env` file:**
 
@@ -537,8 +537,8 @@ Create a `.env` file in the `backend/` directory:
 SECRET_KEY=django-insecure-your-secret-key-here-change-in-production
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
-GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=your-google-client-secret
+# GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+# GOOGLE_CLIENT_SECRET=your-google-client-secret
 ```
 
 > [!CAUTION]
